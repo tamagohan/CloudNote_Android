@@ -64,6 +64,15 @@ public class LoginActivity extends Activity {
 					Log.v("EXAMPLE", "post is executed.");
 					int status = response.getStatusLine().getStatusCode();
 					Log.v("EXAMPLE", Integer.toString(status));
+					
+					// test
+					StringBuilder uriBuilder = new StringBuilder("http://10.0.2.2:3000/notes");
+					//HttpGetを生成する
+					HttpGet request = new HttpGet(uriBuilder.toString());
+					HttpResponse response1 = null;
+					Log.v("EXAMPLE", "http request created.");
+					//リクエストする
+					client.execute(request);
 				} catch (UnsupportedEncodingException e) {
 					Log.v("EXAMPLE", "UnsupportedEncodingException");
 					e.printStackTrace();
