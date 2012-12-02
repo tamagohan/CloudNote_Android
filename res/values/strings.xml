@@ -10,5 +10,7 @@
     <string name="login_button">ログイン</string>
     <string name="login_fail">ログインに失敗しました。</string>
     <string name="button_close_dialog">閉じる</string>
+    
+    <string name="title_activity_note_list">ノートリスト</string>
 
 </resources>

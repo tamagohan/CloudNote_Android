@@ -22,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -83,8 +84,13 @@ public class LoginActivity extends Activity {
 
           @Override
           public void onPostCompleted(String response, Integer status) {
-            // 受信結果をUIに表示
+            // 成功ならばノートのリスト画面へ遷移
         	  Log.v("EXAMPLE", "post success");
+        	  
+        	  Intent intent = new Intent(LoginActivity.this, NoteListActivity.class);
+        	  Log.v("EXAMPLE", "bbbb");
+        	  startActivity(intent);
+        	  Log.v("EXAMPLE", "aaa");
           }
 
           @Override
