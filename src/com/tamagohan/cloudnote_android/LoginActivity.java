@@ -3,6 +3,8 @@ package com.tamagohan.cloudnote_android;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -12,15 +14,20 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class LoginActivity extends Activity {
@@ -33,59 +40,27 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         Button buttonLogin = (Button) findViewById(R.id.button_login);
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.login_fail);
+        builder.setPositiveButton(R.string.button_close_dialog, new DialogInterface.OnClickListener() {
+        	public void onClick(DialogInterface dialog, int which) {
+        	setResult(RESULT_OK);
+        	}
+        });
+
         buttonLogin.setOnClickListener(new View.OnClickListener() {
     		public void onClick(View view) {
     			EditText textLogin    = (EditText) findViewById(R.id.text_login);
     			EditText textPassword = (EditText) findViewById(R.id.text_password);
-    			String login    = textLogin.getText().toString();
-    		    String password = textPassword.getText().toString();
-    			
-				try {
-					StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
-					Log.v("EXAMPLE", "parepare for post");
-					HttpPost method = new HttpPost( "http://10.0.2.2:3000/user_sessions/create_api" );
-					DefaultHttpClient client = new DefaultHttpClient();
-					Log.v("EXAMPLE", "http client created.");
-    				             
-					// POST データの設定
-					Log.v("EXAMPLE", "start to create post data.");
-					String params = "login=" + login + "&password=" + password;
-					StringEntity paramEntity;
-					paramEntity = new StringEntity( params );
-
-					paramEntity.setChunked( false );
-					paramEntity.setContentType( "application/x-www-form-urlencoded" );
-					Log.v("EXAMPLE", "post data created.");
-    				             
-					method.setEntity( paramEntity );
-					Log.v("EXAMPLE", "params is set");
-    			
-					HttpResponse response = client.execute( method );
-					Log.v("EXAMPLE", "post is executed.");
-					int status = response.getStatusLine().getStatusCode();
-					Log.v("EXAMPLE", Integer.toString(status));
-					
-					// test
-					StringBuilder uriBuilder = new StringBuilder("http://10.0.2.2:3000/notes");
-					//HttpGetを生成する
-					HttpGet request = new HttpGet(uriBuilder.toString());
-					HttpResponse response1 = null;
-					Log.v("EXAMPLE", "http request created.");
-					//リクエストする
-					client.execute(request);
-				} catch (UnsupportedEncodingException e) {
-					Log.v("EXAMPLE", "UnsupportedEncodingException");
-					e.printStackTrace();
-				} catch (ClientProtocolException e) {
-					Log.v("EXAMPLE", "ClientProtocolException");
-					e.printStackTrace();
-				} catch (IOException e) {
-					Log.v("EXAMPLE", "IOException");
-					e.printStackTrace();
-				}
-    		}
-    	});
-    }
+    			final String login    = textLogin.getText().toString();
+    		    final String password = textPassword.getText().toString();
+    		    final Map<String, String> params = new HashMap<String, String>();
+    		    params.put("login",    login);
+    		    params.put("password", password);
+    		    exec_post("user_sessions/create_api", params);
+   			}
+   		});
+   	}
     
 
 
@@ -93,5 +68,49 @@ public class LoginActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_login, menu);
         return true;
+    }
+    
+    // POST通信を実行
+    private void exec_post(String url, Map<String, String> params) {
+
+      // 非同期タスクを定義
+      HttpPostTask task = new HttpPostTask(
+        this,
+        "http://10.0.2.2:3000/" + url,
+
+        // タスク完了時に呼ばれるUIのハンドラ
+        new HttpPostHandler(){
+
+          @Override
+          public void onPostCompleted(String response, Integer status) {
+            // 受信結果をUIに表示
+        	  Log.v("EXAMPLE", "post success");
+          }
+
+          @Override
+          public void onPostFailed(String response, Integer status) {
+        	  Log.v("EXAMPLE", Integer.toString(status));
+        	  Log.d("http request error", response);
+        	  String err_msg = "通信エラーが発生しました。";
+        	  if (status == 403){
+        		  err_msg = "ログインに失敗しました。\nログインIDまたはパスワードが間違っています。";
+        	  }
+            Toast.makeText(
+              getApplicationContext(), 
+              err_msg, 
+              Toast.LENGTH_LONG
+            ).show();
+          }
+        }
+      );
+      // パラメータを設定
+      for (Map.Entry<String, String> entry : params.entrySet()) {
+    	  String key = entry.getKey();
+    	  String val = entry.getValue();
+    	  task.addPostParam( key, val );
+      }
+
+      // タスクを開始
+      task.execute();
     }
 }
