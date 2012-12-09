@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class LoginActivity extends Activity {
+	private DefaultHttpClient httpClient = new DefaultHttpClient();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class LoginActivity extends Activity {
         	setResult(RESULT_OK);
         	}
         });
+        
+	    ((MyCloudNote) this.getApplication()).setHttpClient(httpClient);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
     		public void onClick(View view) {
@@ -58,7 +61,7 @@ public class LoginActivity extends Activity {
     		    final Map<String, String> params = new HashMap<String, String>();
     		    params.put("login",    login);
     		    params.put("password", password);
-    		    exec_post("user_sessions/create_api", params);
+    		    exec_post("user_sessions/create_api", params, httpClient);
    			}
    		});
    	}
@@ -72,7 +75,7 @@ public class LoginActivity extends Activity {
     }
     
     // POST通信を実行
-    private void exec_post(String url, Map<String, String> params) {
+    private void exec_post(String url, Map<String, String> params, final DefaultHttpClient httpClient) {
 
       // 非同期タスクを定義
       HttpPostTask task = new HttpPostTask(
@@ -86,11 +89,8 @@ public class LoginActivity extends Activity {
           public void onPostCompleted(String response, Integer status) {
             // 成功ならばノートのリスト画面へ遷移
         	  Log.v("EXAMPLE", "post success");
-        	  
         	  Intent intent = new Intent(LoginActivity.this, NoteListActivity.class);
-        	  Log.v("EXAMPLE", "bbbb");
         	  startActivity(intent);
-        	  Log.v("EXAMPLE", "aaa");
           }
 
           @Override
@@ -107,7 +107,8 @@ public class LoginActivity extends Activity {
               Toast.LENGTH_LONG
             ).show();
           }
-        }
+        },
+        httpClient
       );
       // パラメータを設定
       for (Map.Entry<String, String> entry : params.entrySet()) {
