@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,6 +39,21 @@ public class NoteListActivity extends Activity {
           public void onPostCompleted(String response, Integer status) {
             // 成功ならばノートのリスト画面へ遷移
         	  Log.v("EXAMPLE", "post success");
+        	  Log.v("EXAMPLE", response);
+        	  try {
+        		  Log.d("tmp", "parse start");
+        		  JSONArray _jsonArr = new JSONArray(response);
+        		  Log.d("tmp", "parse success");
+        		  for (int i = 0; i < _jsonArr.length(); i++) {
+        			  JSONObject jsonObject = _jsonArr.getJSONObject(i);
+        			  Log.d("look",jsonObject.getString("title"));
+        			  Log.d("look",jsonObject.getString("body"));
+        		  }
+        	  } catch (JSONException e) {
+        		  Log.d("tmp", "parse fail");
+        		  // TODO 自動生成された catch ブロック
+        		  e.printStackTrace();
+        	  }
           }
 
           @Override

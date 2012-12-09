@@ -43,7 +43,6 @@ public class HttpPostTask extends HttpTask {
 
 		// POSTパラメータ付きでPOSTリクエストを構築
 		HttpPost request = new HttpPost( url );
-		//HttpGet request = new HttpGet( url );
 		
 		try {
 			// 送信パラメータのエンコードを指定

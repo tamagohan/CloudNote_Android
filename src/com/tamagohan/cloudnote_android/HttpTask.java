@@ -20,6 +20,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -167,4 +169,4 @@ public class HttpTask extends AsyncTask<Void, Void, Void> {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
-	}
+}
