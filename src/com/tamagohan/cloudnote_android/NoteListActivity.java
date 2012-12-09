@@ -1,5 +1,6 @@
 package com.tamagohan.cloudnote_android;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,23 +10,35 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 
-public class NoteListActivity extends Activity {
+public class NoteListActivity extends ListActivity {
+	private JSONArray _jsonArr = null;
+	private Context context = this;
+
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note_list);
+        //setContentView(R.layout.activity_note_list);
         final Map<String, String> params = new HashMap<String, String>();
 	    DefaultHttpClient httpClient = ((MyCloudNote) this.getApplication()).getHttpClient();
+	    Log.d("tmp", "note list activity start");
 	    exec_get("notes", params, httpClient);
+	    /*
+	    ArrayList<String> list = jsonArrayToArrayList(_jsonArr);
+	    NoteListAdapter adapter = new NoteListAdapter(this, R.layout.note_row, list);  
+	    setListAdapter(adapter);
+	    */
 	}
 	
     // GET通信を実行
 	private void exec_get(String url, Map<String, String> params, DefaultHttpClient httpClient) {
+		
 
       // 非同期タスクを定義
       HttpGetTask task = new HttpGetTask(
@@ -42,13 +55,19 @@ public class NoteListActivity extends Activity {
         	  Log.v("EXAMPLE", response);
         	  try {
         		  Log.d("tmp", "parse start");
-        		  JSONArray _jsonArr = new JSONArray(response);
+        		  _jsonArr = new JSONArray(response);
         		  Log.d("tmp", "parse success");
         		  for (int i = 0; i < _jsonArr.length(); i++) {
         			  JSONObject jsonObject = _jsonArr.getJSONObject(i);
         			  Log.d("look",jsonObject.getString("title"));
         			  Log.d("look",jsonObject.getString("body"));
         		  }
+        		  Log.d("tmp", "view start");
+        	      ArrayList<ArrayList> list = jsonArrayToArrayList(_jsonArr);
+        	      Log.d("tmp", "json transfer is finish");
+        	  	  NoteListAdapter adapter = new NoteListAdapter(context, R.layout.note_row, list);  
+        	  	  Log.d("tmp", "create adapter finish");
+        		  setListAdapter(adapter);
         	  } catch (JSONException e) {
         		  Log.d("tmp", "parse fail");
         		  // TODO 自動生成された catch ブロック
@@ -76,5 +95,23 @@ public class NoteListActivity extends Activity {
 
       // タスクを開始
       task.execute();
+    }
+	
+	public ArrayList<ArrayList> jsonArrayToArrayList(JSONArray ja)
+    {
+        ArrayList<ArrayList> listItems = new ArrayList<ArrayList>();
+        try {
+        	for (int i = 0; i < ja.length(); i++) {
+        		ArrayList<String> listItem = new ArrayList<String>();
+        		JSONObject jo = (JSONObject) ja.get(i);
+        		listItem.add(jo.getString("title"));
+        		listItem.add(jo.getString("body"));
+        		listItems.add(listItem);
+        	}
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return listItems;
     }
 }
