@@ -24,6 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".NoteListActivity" android:label="@string/title_activity_note_list" />
+        <activity android:name=".NoteShowActivity" android:label="@string/title_activity_note_show" />
+        <activity android:name=".NoteEditActivity" android:label="@string/title_activity_note_edit" />
     </application>
 
 </manifest>

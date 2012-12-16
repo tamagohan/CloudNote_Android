@@ -29,11 +29,6 @@ public class NoteListActivity extends ListActivity {
 	    DefaultHttpClient httpClient = ((MyCloudNote) this.getApplication()).getHttpClient();
 	    Log.d("tmp", "note list activity start");
 	    exec_get("notes", params, httpClient);
-	    /*
-	    ArrayList<String> list = jsonArrayToArrayList(_jsonArr);
-	    NoteListAdapter adapter = new NoteListAdapter(this, R.layout.note_row, list);  
-	    setListAdapter(adapter);
-	    */
 	}
 	
     // GETí êMÇé¿çs

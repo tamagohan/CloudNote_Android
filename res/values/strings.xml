@@ -13,4 +13,14 @@
     
     <string name="title_activity_note_list">ノートリスト</string>
 
+    <string name="title_activity_note_show">詳細画面</string>
+    <string name="label_note_title">件名 : </string>
+    <string name="label_note_body">本文 : </string>
+    
+    <string name="title_activity_note_edit">編集画面</string>
+
+    <string name="label_edit">編集</string>
+    <string name="label_update">更新</string>
+    <string name="label_back">戻る</string>
+
 </resources>

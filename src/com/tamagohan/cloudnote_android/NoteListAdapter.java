@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class NoteListAdapter extends ArrayAdapter {  
@@ -36,10 +39,11 @@ public class NoteListAdapter extends ArrayAdapter {
     		view.setBackgroundResource(R.drawable.back);
 
     		// 表示すべきデータの取得  
-    		ArrayList<String> item = (ArrayList<String>) items.get(position);
+    		final ArrayList<String> item = (ArrayList<String>) items.get(position);
     		if (item != null) {  
-    			TextView title = (TextView)view.findViewById(R.id.title);
-    			TextView body  = (TextView)view.findViewById(R.id.body);
+    			TextView title   = (TextView)view.findViewById(R.id.title);
+    			TextView body    = (TextView)view.findViewById(R.id.body);
+    			ImageView image  = (ImageView)view.findViewById(R.id.note_icon);
     			
     			title.setTypeface(Typeface.DEFAULT_BOLD);
       
@@ -51,7 +55,17 @@ public class NoteListAdapter extends ArrayAdapter {
     			// テキストをビューにセット  
     			if (body != null) {  
     				body.setText(item.get(1));  
-    			}  
+    			}
+    			
+    			image.setOnClickListener(new View.OnClickListener() {
+    	    		public void onClick(View view) {
+    	    			Log.d("tmp", "image click listener is called.");
+    	    			Intent intent = new Intent(view.getContext(), NoteShowActivity.class);
+    	    			intent.putExtra("TITLE", item.get(0));
+    	    			intent.putExtra("BODY",  item.get(1));
+    	    			view.getContext().startActivity(intent);
+    	   			}
+    	   		});
     		}  
     		return view;  
     	}

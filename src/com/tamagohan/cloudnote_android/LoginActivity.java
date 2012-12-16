@@ -52,7 +52,7 @@ public class LoginActivity extends Activity {
         
 	    ((MyCloudNote) this.getApplication()).setHttpClient(httpClient);
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+	    buttonLogin.setOnClickListener(new View.OnClickListener() {
     		public void onClick(View view) {
     			EditText textLogin    = (EditText) findViewById(R.id.text_login);
     			EditText textPassword = (EditText) findViewById(R.id.text_password);
