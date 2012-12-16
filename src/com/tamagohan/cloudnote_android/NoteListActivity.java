@@ -26,6 +26,7 @@ public class NoteListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_note_list);
         final Map<String, String> params = new HashMap<String, String>();
+        params.put("page", "1");
 	    DefaultHttpClient httpClient = ((MyCloudNote) this.getApplication()).getHttpClient();
 	    Log.d("tmp", "note list activity start");
 	    exec_get("notes", params, httpClient);
@@ -88,6 +89,7 @@ public class NoteListActivity extends ListActivity {
         httpClient
       );
 
+      task.setParamsToUrl( params );
       // タスクを開始
       task.execute();
     }

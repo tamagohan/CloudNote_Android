@@ -27,7 +27,13 @@ public class HttpGetTask extends HttpTask {
 	// パラメータをurlに組み込む
 	public void setParamsToUrl( Map<String, String> params )
 	{
-		get_url = get_url + "?a=bb";
+		get_url = get_url + "?";
+		for (Map.Entry<String, String> entry : params.entrySet()) {
+			String key = entry.getKey();
+			String val = entry.getValue();
+			get_url = get_url + key + "=" + val + "&";
+	      }
+		
 	}
 	
 	// メイン処理
