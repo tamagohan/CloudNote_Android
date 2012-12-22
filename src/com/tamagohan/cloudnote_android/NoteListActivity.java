@@ -103,6 +103,7 @@ public class NoteListActivity extends ListActivity {
         		JSONObject jo = (JSONObject) ja.get(i);
         		listItem.add(jo.getString("title"));
         		listItem.add(jo.getString("body"));
+        		listItem.add(jo.getString("id"));
         		listItems.add(listItem);
         	}
         } catch (JSONException e) {

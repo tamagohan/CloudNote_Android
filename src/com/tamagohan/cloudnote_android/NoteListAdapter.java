@@ -43,6 +43,7 @@ public class NoteListAdapter extends ArrayAdapter {
     		if (item != null) {  
     			TextView title   = (TextView)view.findViewById(R.id.title);
     			TextView body    = (TextView)view.findViewById(R.id.body);
+    			TextView id      = (TextView)view.findViewById(R.id.note_id);
     			ImageView image  = (ImageView)view.findViewById(R.id.note_icon);
     			
     			title.setTypeface(Typeface.DEFAULT_BOLD);
@@ -63,6 +64,7 @@ public class NoteListAdapter extends ArrayAdapter {
     	    			Intent intent = new Intent(view.getContext(), NoteShowActivity.class);
     	    			intent.putExtra("TITLE", item.get(0));
     	    			intent.putExtra("BODY",  item.get(1));
+    	    			intent.putExtra("ID",  item.get(2));
     	    			view.getContext().startActivity(intent);
     	   			}
     	   		});

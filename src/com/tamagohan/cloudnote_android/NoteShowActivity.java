@@ -31,6 +31,7 @@ public class NoteShowActivity extends Activity {
     			Intent intent = new Intent(NoteShowActivity.this, NoteEditActivity.class);
     			intent.putExtra("TITLE", extras.getString("TITLE"));
     			intent.putExtra("BODY",  extras.getString("BODY"));
+    			intent.putExtra("ID",    extras.getString("ID"));
     			view.getContext().startActivity(intent);
    			}
    		});
