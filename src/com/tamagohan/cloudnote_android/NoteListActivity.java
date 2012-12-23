@@ -15,6 +15,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -63,7 +68,19 @@ public class NoteListActivity extends ListActivity {
         	      Log.d("tmp", "json transfer is finish");
         	  	  NoteListAdapter adapter = new NoteListAdapter(context, R.layout.note_row, list);  
         	  	  Log.d("tmp", "create adapter finish");
+        	  	  ListView lv = getListView();
+        	  	  LayoutInflater inflater = getLayoutInflater();
+        	  	  ViewGroup header = (ViewGroup)inflater.inflate(R.layout.note_list_header, lv, false);
+        	  	  lv.addHeaderView(header, null, false);
         		  setListAdapter(adapter);
+        		  Button buttonNew = (Button) findViewById(R.id.button_new);
+        		  buttonNew.setOnClickListener(new View.OnClickListener() {
+        	    		public void onClick(View view) {
+        	    			Log.d("tmp", "new button!!!");
+        	   			}
+        	   		});
+        	  	  Log.d("tmp", "aaaaaaaaa------------");
+        	  	
         	  } catch (JSONException e) {
         		  Log.d("tmp", "parse fail");
         		  // TODO é©ìÆê∂ê¨Ç≥ÇÍÇΩ catch ÉuÉçÉbÉN

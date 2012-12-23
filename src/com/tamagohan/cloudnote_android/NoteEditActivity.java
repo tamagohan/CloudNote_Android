@@ -74,11 +74,7 @@ public class NoteEditActivity extends Activity {
           public void onPostCompleted(String response, Integer status) {
             // 成功ならばノートのリスト画面へ遷移
         	  Log.v("EXAMPLE", "post success");
-        	  Log.v("EXAMPLE", "update finish !!!!!!!!!!!!!!!!!!");
-        	  Intent intent = new Intent(NoteEditActivity.this, NoteShowActivity.class);
-        	  intent.putExtra("TITLE", title);
-        	  intent.putExtra("BODY",  body);
-        	  intent.putExtra("ID",    id);
+        	  Intent intent = new Intent(NoteEditActivity.this, NoteListActivity.class);
         	  intent.putExtra("FROM_ACTIVITY", "edit");
         	  intent.putExtra("MESSAGE",       "更新に成功しました。");
         	  startActivity(intent);

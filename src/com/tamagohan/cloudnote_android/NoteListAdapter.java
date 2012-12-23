@@ -22,16 +22,20 @@ public class NoteListAdapter extends ArrayAdapter {
       
     public NoteListAdapter(Context httpPostHandler, int textViewResourceId,  ArrayList items) {  
     	super(httpPostHandler, textViewResourceId, items);  
-    	this.items = items;  
+    	Log.d("tmp", "cccccccccccc------------");
+    	this.items = items;
     	this.inflater = (LayoutInflater) httpPostHandler  
     			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
-    }  
-      
+    }
+    
+          
     @Override  
-    public View getView(int position, View convertView, ViewGroup parent) {  
+    public View getView(int position, View convertView, ViewGroup parent) {
+    	Log.d("tmp", "ddddddddd------------");
     	// ビューを受け取る  
     	View view = convertView;  
-    	if (view == null) {  
+    	if (view == null) {
+    		Log.d("tmp", "eeeeeeee------------");
     		// 受け取ったビューがnullなら新しくビューを生成  
     		view = inflater.inflate(R.layout.note_row, null);  
     		
