@@ -24,6 +24,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -72,6 +73,19 @@ public class LoginActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_login, menu);
         return true;
+    }
+    
+    // 戻るボタンを無効化する
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction()==KeyEvent.ACTION_DOWN) {
+            switch (event.getKeyCode()) {
+            case KeyEvent.KEYCODE_BACK:
+                // ダイアログ表示など特定の処理を行いたい場合はここに記述
+                // 親クラスのdispatchKeyEvent()を呼び出さずにtrueを返す
+                return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
     
     // POST通信を実行

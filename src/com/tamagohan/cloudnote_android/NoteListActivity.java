@@ -87,15 +87,28 @@ public class NoteListActivity extends ListActivity {
         	  	  ViewGroup header = (ViewGroup)inflater.inflate(R.layout.note_list_header, lv, false);
         	  	  lv.addHeaderView(header, null, false);
         		  setListAdapter(adapter);
+        		  
+        		  // 新規作成ボタン
         		  Button buttonNew = (Button) findViewById(R.id.button_new);
         		  buttonNew.setOnClickListener(new View.OnClickListener() {
-        	    		public void onClick(View view) {
-        	    			Intent intent = new Intent(NoteListActivity.this, NoteNewActivity.class);
-        	    			view.getContext().startActivity(intent);
-        	    			Log.d("tmp", "new button!!!");
-        	   			}
-        	   		});
-        		  if(extras != null && extras.getString("MESSAGE") != null){
+      	    		  public void onClick(View view) {
+      	    			  Intent intent = new Intent(NoteListActivity.this, NoteNewActivity.class);
+      	    			  view.getContext().startActivity(intent);
+      	    			  Log.d("tmp", "new button!!!");
+      	   			  }
+      	   		  });
+        	  	  
+        	  	  // ログアウトボタン
+        	      Button buttonLogout = (Button) findViewById(R.id.logout);
+        	      buttonLogout.setOnClickListener(new View.OnClickListener() {
+      	    		  public void onClick(View view) {
+      	    			  Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
+      	    			  view.getContext().startActivity(intent);
+      	   		      }
+      	   		  });
+        	      
+        	      // 結果通知ダイアログ
+        	      if(extras != null && extras.getString("MESSAGE") != null){
         			  Log.d("tmp", "notification!!!!");
         			  builder.setMessage(extras.getString("MESSAGE"));
       				  builder.create();
