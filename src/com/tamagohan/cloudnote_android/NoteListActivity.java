@@ -76,6 +76,8 @@ public class NoteListActivity extends ListActivity {
         		  Button buttonNew = (Button) findViewById(R.id.button_new);
         		  buttonNew.setOnClickListener(new View.OnClickListener() {
         	    		public void onClick(View view) {
+        	    			Intent intent = new Intent(NoteListActivity.this, NoteNewActivity.class);
+        	    			view.getContext().startActivity(intent);
         	    			Log.d("tmp", "new button!!!");
         	   			}
         	   		});
