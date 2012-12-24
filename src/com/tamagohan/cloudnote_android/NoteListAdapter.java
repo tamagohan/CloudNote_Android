@@ -64,7 +64,6 @@ public class NoteListAdapter extends ArrayAdapter {
     			
     			image.setOnClickListener(new View.OnClickListener() {
     	    		public void onClick(View view) {
-    	    			Log.d("tmp", "image click listener is called.");
     	    			Intent intent = new Intent(view.getContext(), NoteShowActivity.class);
     	    			intent.putExtra("TITLE", item.get(0));
     	    			intent.putExtra("BODY",  item.get(1));

@@ -17,7 +17,7 @@ public class NoteShowActivity extends Activity {
         setContentView(R.layout.activity_note_show);
         Log.v("EXAMPLE", "onCreate was called.");
         setContentView(R.layout.activity_note_show);
-		TextView title = (TextView) findViewById(R.id.note_title);
+        TextView title = (TextView) findViewById(R.id.note_title);
 		TextView body  = (TextView) findViewById(R.id.note_body);
 		Button editButton = (Button) findViewById(R.id.note_edit);
 		Button backButton = (Button) findViewById(R.id.note_back);

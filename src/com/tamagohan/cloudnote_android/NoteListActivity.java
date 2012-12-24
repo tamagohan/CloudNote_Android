@@ -10,8 +10,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,16 +22,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class NoteListActivity extends ListActivity {
-	private JSONArray _jsonArr = null;
-	private Context context = this;
+	private JSONArray _jsonArr  = null;
+	private Context context     = this;
+	Bundle extras               = null;
+	AlertDialog.Builder builder = null;
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_note_list);
+        extras  = getIntent().getExtras();
+
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.notification_dialog);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        	public void onClick(DialogInterface dialog, int which) {
+        	setResult(RESULT_OK);
+        	}
+        });
+        
         final Map<String, String> params = new HashMap<String, String>();
         params.put("page", "1");
 	    DefaultHttpClient httpClient = ((MyCloudNote) this.getApplication()).getHttpClient();
@@ -81,6 +95,12 @@ public class NoteListActivity extends ListActivity {
         	    			Log.d("tmp", "new button!!!");
         	   			}
         	   		});
+        		  if(extras != null && extras.getString("MESSAGE") != null){
+        			  Log.d("tmp", "notification!!!!");
+        			  builder.setMessage(extras.getString("MESSAGE"));
+      				  builder.create();
+      				  builder.show();
+        		  }
         	  	  Log.d("tmp", "aaaaaaaaa------------");
         	  	
         	  } catch (JSONException e) {

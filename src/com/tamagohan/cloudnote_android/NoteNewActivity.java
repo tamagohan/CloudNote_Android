@@ -22,13 +22,12 @@ public class NoteNewActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_note_new);
         Log.v("EXAMPLE", "onCreate of noteNewActivity was called.");
         setContentView(R.layout.activity_note_new);
         final EditText titleText = (EditText) findViewById(R.id.note_title);
         final EditText bodyText  = (EditText) findViewById(R.id.note_body);
 		Button createButton = (Button) findViewById(R.id.note_create);
-		Button backButton = (Button) findViewById(R.id.note_back);
+		Button backButton =   (Button) findViewById(R.id.note_back);
 		
 		final DefaultHttpClient httpClient = ((MyCloudNote) this.getApplication()).getHttpClient();
 		
@@ -69,7 +68,7 @@ public class NoteNewActivity extends Activity {
         	  Log.v("EXAMPLE", "post success");
         	  Intent intent = new Intent(NoteNewActivity.this, NoteListActivity.class);
         	  intent.putExtra("FROM_ACTIVITY", "new");
-        	  intent.putExtra("MESSAGE",       "更新に成功しました。");
+        	  intent.putExtra("MESSAGE",       "作成に成功しました。");
         	  startActivity(intent);
           }
 
