@@ -94,7 +94,7 @@ public class LoginActivity extends Activity {
       // 非同期タスクを定義
       HttpPostTask task = new HttpPostTask(
         this,
-        "http://10.0.2.2:3000/" + url,
+        Constants.SERVER_URL + url,
 
         // タスク完了時に呼ばれるUIのハンドラ
         new HttpPostHandler(){

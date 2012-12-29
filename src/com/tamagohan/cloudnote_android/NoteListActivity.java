@@ -58,7 +58,7 @@ public class NoteListActivity extends ListActivity {
       // 非同期タスクを定義
       HttpGetTask task = new HttpGetTask(
         this,
-        "http://10.0.2.2:3000/" + url,
+        Constants.SERVER_URL + url,
 
         // タスク完了時に呼ばれるUIのハンドラ
         new HttpPostHandler(){
