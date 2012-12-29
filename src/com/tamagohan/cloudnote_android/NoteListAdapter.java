@@ -40,7 +40,7 @@ public class NoteListAdapter extends ArrayAdapter {
     		view = inflater.inflate(R.layout.note_row, null);  
     		
     		// 背景画像をセットする
-    		view.setBackgroundResource(R.drawable.back);
+    		view.setBackgroundResource(R.drawable.back_ground);
 
     		// 表示すべきデータの取得  
     		final ArrayList<String> item = (ArrayList<String>) items.get(position);
