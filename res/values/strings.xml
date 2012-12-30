@@ -10,6 +10,7 @@
     <string name="label_login">ログインID</string>
     <string name="label_password">パスワード</string>
     <string name="login_button">ログイン</string>
+    <string name="new_user_button">会員登録はこちらから</string>
     <string name="login_fail">ログインに失敗しました。</string>
     <string name="button_close_dialog">閉じる</string>
     

@@ -15,6 +15,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -42,6 +43,7 @@ public class LoginActivity extends Activity {
         Log.v("EXAMPLE", "onCreate was called.");
         setContentView(R.layout.activity_login);
         Button buttonLogin = (Button) findViewById(R.id.button_login);
+        Button buttonNewUser = (Button) findViewById(R.id.button_new_user);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.login_fail);
@@ -63,6 +65,14 @@ public class LoginActivity extends Activity {
     		    params.put("login",    login);
     		    params.put("password", password);
     		    exec_post("user_sessions/create_api", params, httpClient);
+   			}
+   		});
+	    
+	    buttonNewUser.setOnClickListener(new View.OnClickListener() {
+    		public void onClick(View view) {
+    			Uri uri = Uri.parse(Constants.SERVER_URL + "users/new");
+    			Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+    			startActivity(intent);
    			}
    		});
    	}
