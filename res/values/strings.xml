@@ -16,6 +16,8 @@
     <string name="label_logout">ログアウト</string>
     <string name="logout_button">ログアウト</string>
     
+    <string name="label_more_notes">ノートをさらに読み込む</string>
+    
     <string name="title_activity_note_list">ノートリスト</string>
     <string name="notification_dialog">結果</string>
 
