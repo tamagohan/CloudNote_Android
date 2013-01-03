@@ -33,6 +33,7 @@ public class NoteListActivity extends ListActivity {
 	AlertDialog.Builder builder  = null;
 	NoteListAdapter adapter      = null;
 	DefaultHttpClient httpClient = null;
+	MyCloudNote app              = null;
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +49,9 @@ public class NoteListActivity extends ListActivity {
         
         final Map<String, String> params = new HashMap<String, String>();
         params.put("page", "1");
-	    // DefaultHttpClient httpClient = ((MyCloudNote) this.getApplication()).getHttpClient();
-        httpClient = ((MyCloudNote) this.getApplication()).getHttpClient();
+        app = (MyCloudNote) this.getApplication();
+        app.clearCurrentNotePage();
+        httpClient = app.getHttpClient();
 	    Log.d("tmp", "note list activity start");
 	    exec_get("notes", params, httpClient);
 	}
@@ -101,7 +103,6 @@ public class NoteListActivity extends ListActivity {
       	    		  public void onClick(View view) {
       	    			  Intent intent = new Intent(NoteListActivity.this, NoteNewActivity.class);
       	    			  view.getContext().startActivity(intent);
-      	    			  Log.d("tmp", "new button!!!");
       	   			  }
       	   		  });
         	  	  
@@ -111,6 +112,7 @@ public class NoteListActivity extends ListActivity {
       	    		  public void onClick(View view) {
       	    			  Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
       	    			  view.getContext().startActivity(intent);
+      	    			  app.clearCurrentNotePage();
       	   		      }
       	   		  });
         	      
@@ -119,16 +121,11 @@ public class NoteListActivity extends ListActivity {
         	      buttonMoreNotes.setOnClickListener(new View.OnClickListener() {
       	    		  public void onClick(View view) {
       	    			  Log.d("tmp", "more notes button is clicked.");
+      	    			  Integer pageNumber = app.getCurrentNotePage();
       	    			  final Map<String, String> params = new HashMap<String, String>();
-      	    	          params.put("page", "2");
+      	    	          params.put("page", Integer.toString(pageNumber));
       	    			  get_more_notes("notes", params, httpClient);
-      	    			  /*
-      	    			  ArrayList<String> addtionalItem = new ArrayList<String>();
-      	    			  addtionalItem.clear();
-      	    			  addtionalItem.add("test_android");
-      	    			  addtionalItem.add("test_android");
-      	    			  addtionalItem.add("33");
-      	        		  adapter.add(addtionalItem);*/
+      	    			  app.incrementCurrentNotePage();
       	   			  }
       	   		  });
         	      
