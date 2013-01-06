@@ -15,7 +15,7 @@ public class NoteShowActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_show);
-        Log.v("EXAMPLE", "onCreate was called.");
+        Log.v("activity", "onCreate of NoteShowActivity was called.");
         setContentView(R.layout.activity_note_show);
         TextView title = (TextView) findViewById(R.id.note_title);
 		TextView body  = (TextView) findViewById(R.id.note_body);

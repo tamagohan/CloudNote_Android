@@ -23,7 +23,7 @@ public class NoteEditActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
-        Log.v("EXAMPLE", "onCreate of noteEditActivity was called.");
+        Log.v("activity", "onCreate of noteEditActivity was called.");
         setContentView(R.layout.activity_note_edit);
         final EditText titleText = (EditText) findViewById(R.id.note_title);
         final EditText bodyText  = (EditText) findViewById(R.id.note_body);
@@ -73,7 +73,7 @@ public class NoteEditActivity extends Activity {
           @Override
           public void onPostCompleted(String response, Integer status) {
             // 成功ならばノートのリスト画面へ遷移
-        	  Log.v("EXAMPLE", "post success");
+        	  Log.v("http request success", "post success");
         	  Intent intent = new Intent(NoteEditActivity.this, NoteListActivity.class);
         	  intent.putExtra("FROM_ACTIVITY", "edit");
         	  intent.putExtra("MESSAGE",       "更新に成功しました。");
@@ -82,7 +82,7 @@ public class NoteEditActivity extends Activity {
 
           @Override
           public void onPostFailed(String response, Integer status) {
-        	  Log.v("EXAMPLE", Integer.toString(status));
+        	  Log.v("http request error", Integer.toString(status));
         	  Log.d("http request error", response);
         	  String err_msg = "通信エラーが発生しました。";
         	  if (status == 403){

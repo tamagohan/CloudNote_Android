@@ -21,7 +21,6 @@ public class HttpGetTask extends HttpTask {
 	public HttpGetTask(Activity parent_activity, String get_url,
 			Handler ui_handler, DefaultHttpClient httpClient) {
 		super(parent_activity, get_url, ui_handler, httpClient);
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 	
 	// パラメータをurlに組み込む
@@ -47,7 +46,7 @@ public class HttpGetTask extends HttpTask {
 
 		try {
 			url = new URI( get_url );
-			Log.d("posttest", "URLはOK");
+			Log.d("gettest", "URLはOK");
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 			http_err_msg = "不正なURL";

@@ -31,10 +31,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-/**
- * HTTP通信でPOSTリクエストを投げる処理を非同期で行うタスク。
- *
- */
 public class HttpTask extends AsyncTask<Void, Void, Void> {
 
 	// 設定事項
@@ -75,7 +71,7 @@ public class HttpTask extends AsyncTask<Void, Void, Void> {
 	/* --------------------- POSTパラメータ --------------------- */
 
 
-	// 追加
+	// パラメータを追加
 	public void addPostParam( String post_name, String post_value )
 	{
 		post_params.add(new BasicNameValuePair( post_name, post_value ));
@@ -134,10 +130,6 @@ public class HttpTask extends AsyncTask<Void, Void, Void> {
 		};
 	}
 
-
-
-
-
 	// タスク終了時
 	protected void onPostExecute(Void unused) {
 		// ダイアログを消す
@@ -166,7 +158,6 @@ public class HttpTask extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected Void doInBackground(Void... params) {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 }

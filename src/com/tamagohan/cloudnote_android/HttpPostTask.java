@@ -21,7 +21,6 @@ public class HttpPostTask extends HttpTask {
 	public HttpPostTask(Activity parent_activity, String post_url,
 			Handler ui_handler, DefaultHttpClient httpClient) {
 		super(parent_activity, post_url, ui_handler, httpClient);
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 	
 	// メイン処理
@@ -54,7 +53,6 @@ public class HttpPostTask extends HttpTask {
 		}
 
 		// POSTリクエストを実行
-		
 		Log.d("posttest", "POST開始");
 		try {
 			httpClient.execute(request, response_handler);
@@ -65,10 +63,6 @@ public class HttpPostTask extends HttpTask {
 			e.printStackTrace();
 			http_err_msg = "IOエラー";
 		}
-
-		// shutdownすると通信できなくなる
-		//httpClient.getConnectionManager().shutdown();
-
 		return null;
 	}
 }

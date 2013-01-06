@@ -40,7 +40,7 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.v("EXAMPLE", "onCreate was called.");
+        Log.v("activity", "onCreate was called.");
         setContentView(R.layout.activity_login);
         Button buttonLogin = (Button) findViewById(R.id.button_login);
         Button buttonNewUser = (Button) findViewById(R.id.button_new_user);
@@ -90,8 +90,6 @@ public class LoginActivity extends Activity {
         if (event.getAction()==KeyEvent.ACTION_DOWN) {
             switch (event.getKeyCode()) {
             case KeyEvent.KEYCODE_BACK:
-                // ダイアログ表示など特定の処理を行いたい場合はここに記述
-                // 親クラスのdispatchKeyEvent()を呼び出さずにtrueを返す
                 return true;
             }
         }
@@ -119,7 +117,7 @@ public class LoginActivity extends Activity {
 
           @Override
           public void onPostFailed(String response, Integer status) {
-        	  Log.v("EXAMPLE", Integer.toString(status));
+        	  Log.v("http request error", Integer.toString(status));
         	  Log.d("http request error", response);
         	  String err_msg = "通信エラーが発生しました。";
         	  if (status == 403){

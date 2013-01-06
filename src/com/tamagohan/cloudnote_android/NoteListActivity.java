@@ -37,6 +37,7 @@ public class NoteListActivity extends ListActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("activity", "onCreate of NoteListActivity was called.");
         extras  = getIntent().getExtras();
 
         builder = new AlertDialog.Builder(this);
@@ -52,7 +53,6 @@ public class NoteListActivity extends ListActivity {
         app = (MyCloudNote) this.getApplication();
         app.clearCurrentNotePage();
         httpClient = app.getHttpClient();
-	    Log.d("tmp", "note list activity start");
 	    exec_get("notes", params, httpClient);
 	}
 	
@@ -71,30 +71,22 @@ public class NoteListActivity extends ListActivity {
           @Override
           public void onPostCompleted(String response, Integer status) {
             // 成功ならばノートのリスト画面へ遷移
-        	  Log.v("EXAMPLE", "post success");
-        	  Log.v("EXAMPLE", response);
+        	  Log.v("http request success", "post success");
         	  try {
-        		  Log.d("tmp", "parse start");
         		  _jsonArr = new JSONArray(response);
-        		  Log.d("tmp", "parse success");
         		  for (int i = 0; i < _jsonArr.length(); i++) {
         			  JSONObject jsonObject = _jsonArr.getJSONObject(i);
-        			  Log.d("look",jsonObject.getString("title"));
-        			  Log.d("look",jsonObject.getString("body"));
+        			  Log.d("response",jsonObject.getString("title"));
+        			  Log.d("response",jsonObject.getString("body"));
         		  }
-        		  Log.d("tmp", "view start");
         	      ArrayList<ArrayList> list = jsonArrayToArrayList(_jsonArr);
-        	      Log.d("tmp", "json transfer is finish");
-        	      // final NoteListAdapter adapter = new NoteListAdapter(context, R.layout.note_row, list);
         	      adapter = new NoteListAdapter(context, R.layout.note_row, list);
-        	      Log.d("tmp", "create adapter finish");
         	  	  ListView lv = getListView();
         	  	  LayoutInflater inflater = getLayoutInflater();
         	  	  ViewGroup header = (ViewGroup)inflater.inflate(R.layout.note_list_header, lv, false);
         	  	  ViewGroup footer = (ViewGroup)inflater.inflate(R.layout.note_list_footer, lv, false);
         	  	  lv.addHeaderView(header, null, false);
                   lv.addFooterView(footer, null, false);
-                  Log.d("tmp", "first adapter");
                   setListAdapter(adapter);
         		          		  
         		  // 新規作成ボタン
@@ -120,7 +112,6 @@ public class NoteListActivity extends ListActivity {
         	      Button buttonMoreNotes = (Button) findViewById(R.id.button_more_notes);
         	      buttonMoreNotes.setOnClickListener(new View.OnClickListener() {
       	    		  public void onClick(View view) {
-      	    			  Log.d("tmp", "more notes button is clicked.");
       	    			  Integer pageNumber = app.getCurrentNotePage();
       	    			  final Map<String, String> params = new HashMap<String, String>();
       	    	          params.put("page", Integer.toString(pageNumber));
@@ -131,23 +122,20 @@ public class NoteListActivity extends ListActivity {
         	      
         	      // 結果通知ダイアログ
         	      if(extras != null && extras.getString("MESSAGE") != null){
-        			  Log.d("tmp", "notification!!!!");
         			  builder.setMessage(extras.getString("MESSAGE"));
       				  builder.create();
       				  builder.show();
         		  }
-        	  	  Log.d("tmp", "aaaaaaaaa------------");
         	  	
         	  } catch (JSONException e) {
-        		  Log.d("tmp", "parse fail");
-        		  // TODO 自動生成された catch ブロック
+        		  Log.d("error", "parse fail");
         		  e.printStackTrace();
         	  }
           }
 
           @Override
           public void onPostFailed(String response, Integer status) {
-        	  Log.v("EXAMPLE", Integer.toString(status));
+        	  Log.v("http request error", Integer.toString(status));
         	  Log.d("http request error", response);
         	  String err_msg = "通信エラーが発生しました。";
         	  if (status == 403){
@@ -180,48 +168,36 @@ public class NoteListActivity extends ListActivity {
 					@Override
 					public void onPostCompleted(String response, Integer status) {
 						// 成功ならばノートのリスト画面へ遷移
-						Log.v("EXAMPLE", "post success");
-						Log.v("EXAMPLE", response);
+						Log.v("http request success", "post success");
 						try {
-							Log.d("tmp", "parse start");
 							_jsonArr = new JSONArray(response);
-							Log.d("tmp", "parse success");
 							for (int i = 0; i < _jsonArr.length(); i++) {
 								JSONObject jsonObject = _jsonArr.getJSONObject(i);
-								Log.d("look",jsonObject.getString("title"));
-								Log.d("look",jsonObject.getString("body"));
+								Log.d("response",jsonObject.getString("title"));
+								Log.d("response",jsonObject.getString("body"));
 							}
-							Log.d("tmp", "view start");
 							ArrayList<ArrayList> items = jsonArrayToArrayList(_jsonArr);
 							for (int i = 0; i < items.size(); i++) {
-								Log.d("tmp", "set item.");
-								Log.d("look",(String) items.get(i).get(0));
 								adapter.add(items.get(i));
 				        	}
 							adapter.debug_items();
-							Log.d("tmp", "json transfer is finish");
-							
-
 	        	      
 	        	      // 結果通知ダイアログ
 	        	      if(extras != null && extras.getString("MESSAGE") != null){
-	        			  Log.d("tmp", "notification!!!!");
 	        			  builder.setMessage(extras.getString("MESSAGE"));
 	      				  builder.create();
 	      				  builder.show();
 	        		  }
-	        	  	  Log.d("tmp", "aaaaaaaaa------------");
 	        	  	
 	        	  } catch (JSONException e) {
 	        		  Log.d("tmp", "parse fail");
-	        		  // TODO 自動生成された catch ブロック
 	        		  e.printStackTrace();
 	        	  }
 	          }
 
 	          @Override
 	          public void onPostFailed(String response, Integer status) {
-	        	  Log.v("EXAMPLE", Integer.toString(status));
+	        	  Log.v("http request error", Integer.toString(status));
 	        	  Log.d("http request error", response);
 	        	  String err_msg = "通信エラーが発生しました。";
 	        	  if (status == 403){
@@ -255,7 +231,6 @@ public class NoteListActivity extends ListActivity {
         		listItems.add(listItem);
         	}
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return listItems;

@@ -65,7 +65,7 @@ public class NoteNewActivity extends Activity {
           @Override
           public void onPostCompleted(String response, Integer status) {
             // 成功ならばノートのリスト画面へ遷移
-        	  Log.v("EXAMPLE", "post success");
+        	  Log.v("http request success", "post success");
         	  Intent intent = new Intent(NoteNewActivity.this, NoteListActivity.class);
         	  intent.putExtra("FROM_ACTIVITY", "new");
         	  intent.putExtra("MESSAGE",       "作成に成功しました。");
@@ -74,7 +74,7 @@ public class NoteNewActivity extends Activity {
 
           @Override
           public void onPostFailed(String response, Integer status) {
-        	  Log.v("EXAMPLE", Integer.toString(status));
+        	  Log.v("http request error", Integer.toString(status));
         	  Log.d("http request error", response);
         	  String err_msg = "通信エラーが発生しました。";
         	  if (status == 403){

@@ -22,7 +22,6 @@ public class NoteListAdapter extends ArrayAdapter {
       
     public NoteListAdapter(Context httpPostHandler, int textViewResourceId,  ArrayList items) {  
     	super(httpPostHandler, textViewResourceId, items);  
-    	Log.d("tmp", "cccccccccccc------------");
     	this.items = items;
     	this.inflater = (LayoutInflater) httpPostHandler  
     			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
@@ -31,17 +30,13 @@ public class NoteListAdapter extends ArrayAdapter {
     public void debug_items(){
     	for (int i = 0; i < items.size(); i++) {
     		ArrayList tmp_item = (ArrayList) items.get(i);
-    		Log.d("tmp", (String) tmp_item.get(0));
     	}
     }
      
     @Override  
     public View getView(int position, View convertView, ViewGroup parent) {
-    	Log.d("tmp", "ddddddddd------------");
-    	Log.d("tmp", Integer.toString(position));
     	// ビューを受け取る  
     	View view = convertView;  
-    	Log.d("tmp", "eeeeeeee------------");
     	// 受け取ったビューがnullなら新しくビューを生成  
     	view = inflater.inflate(R.layout.note_row, null);  
     		
@@ -60,11 +55,10 @@ public class NoteListAdapter extends ArrayAdapter {
 
     		// titleをビューにセット  
     		if (title != null) {  
-    			Log.d("tmp", item.get(0));
     			title.setText(item.get(0));  
   			}  
       
-    		// テキストをビューにセット  
+    		// bodyをビューにセット  
     		if (body != null) {  
     			body.setText(item.get(1));  
    			}
