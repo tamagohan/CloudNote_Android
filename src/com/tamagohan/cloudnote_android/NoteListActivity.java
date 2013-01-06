@@ -139,7 +139,7 @@ public class NoteListActivity extends ListActivity {
                 	Log.d("http request error", response);
                 	String err_msg = "通信エラーが発生しました。";
                 	if (status == 403){
-                		err_msg = "ログインに失敗しました。\nログインIDまたはパスワードが間違っています。";
+                		err_msg = "ノートの読み込みに失敗しました。";
                 	}
                 	Toast.makeText(
                 			getApplicationContext(), 
@@ -203,7 +203,7 @@ public class NoteListActivity extends ListActivity {
 	        	  Log.d("http request error", response);
 	        	  String err_msg = "通信エラーが発生しました。";
 	        	  if (status == 403){
-	        		  err_msg = "ログインに失敗しました。\nログインIDまたはパスワードが間違っています。";
+	        		  err_msg = "ノートの読み込みに失敗しました。";
 	        	  }
 	            Toast.makeText(
 	              getApplicationContext(), 

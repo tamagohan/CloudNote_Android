@@ -80,7 +80,7 @@ public class NoteNewActivity extends Activity {
         	  Log.d("http request error", response);
         	  String err_msg = "通信エラーが発生しました。";
         	  if (status == 403){
-        		  err_msg = "更新に失敗しました。";
+        		  err_msg = "作成に失敗しました。";
         	  }
             Toast.makeText(
               getApplicationContext(), 
