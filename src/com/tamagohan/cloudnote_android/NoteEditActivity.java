@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,8 +29,8 @@ public class NoteEditActivity extends Activity {
         final EditText titleText = (EditText) findViewById(R.id.note_title);
         final EditText bodyText  = (EditText) findViewById(R.id.note_body);
 		Button updateButton = (Button) findViewById(R.id.note_update);
-		Button backButton = (Button) findViewById(R.id.note_back);
-		final Bundle extras  = getIntent().getExtras();
+		Button backButton   = (Button) findViewById(R.id.note_back);
+		final Bundle extras = getIntent().getExtras();
 		
 		titleText.setText(extras.getString("TITLE"));
 		bodyText .setText(extras.getString("BODY"));
@@ -42,9 +43,9 @@ public class NoteEditActivity extends Activity {
     		    body  = bodyText .getText().toString();
     		    id    = extras.getString("ID");
     		    final Map<String, String> params = new HashMap<String, String>();
-    		    params.put("title", title);
-    		    params.put("body",  body);
-    		    params.put("id",    id);
+    		    params.put("title",   title);
+    		    params.put("body",    body);
+    		    params.put("id",      id);
     		    params.put("_method", "PUT");
     		    
     		    String path = "notes/" + extras.getString("ID");
@@ -60,7 +61,8 @@ public class NoteEditActivity extends Activity {
    	}
     
     // POST通信を実行
-    private void exec_post(String url, Map<String, String> params, final DefaultHttpClient httpClient) {
+    @SuppressLint("HandlerLeak")
+	private void exec_post(String url, Map<String, String> params, final DefaultHttpClient httpClient) {
 
       // 非同期タスクを定義
       HttpPostTask task = new HttpPostTask(

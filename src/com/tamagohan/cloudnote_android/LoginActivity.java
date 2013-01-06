@@ -1,24 +1,13 @@
 package com.tamagohan.cloudnote_android;
 
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -41,8 +30,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Log.v("activity", "onCreate was called.");
-        setContentView(R.layout.activity_login);
-        Button buttonLogin = (Button) findViewById(R.id.button_login);
+        Button buttonLogin   = (Button) findViewById(R.id.button_login);
         Button buttonNewUser = (Button) findViewById(R.id.button_new_user);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -70,7 +58,7 @@ public class LoginActivity extends Activity {
 	    
 	    buttonNewUser.setOnClickListener(new View.OnClickListener() {
     		public void onClick(View view) {
-    			Uri uri = Uri.parse(Constants.SERVER_URL + "users/new");
+    			Uri uri       = Uri.parse(Constants.SERVER_URL + "users/new");
     			Intent intent = new Intent(Intent.ACTION_VIEW,uri);
     			startActivity(intent);
    			}
@@ -97,7 +85,8 @@ public class LoginActivity extends Activity {
     }
     
     // POST通信を実行
-    private void exec_post(String url, Map<String, String> params, final DefaultHttpClient httpClient) {
+    @SuppressLint("HandlerLeak")
+	private void exec_post(String url, Map<String, String> params, final DefaultHttpClient httpClient) {
 
       // 非同期タスクを定義
       HttpPostTask task = new HttpPostTask(

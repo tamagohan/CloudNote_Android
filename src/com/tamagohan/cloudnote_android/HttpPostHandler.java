@@ -8,8 +8,8 @@ public abstract class HttpPostHandler extends Handler {
   public void handleMessage(Message msg)
   {
     boolean isPostSuccess = msg.getData().getBoolean("http_post_success");
-    String http_response = msg.getData().get("http_response").toString();
-    Integer http_status = (Integer) msg.getData().get("http_status");
+    String http_response  = msg.getData().get("http_response").toString();
+    Integer http_status   = (Integer) msg.getData().get("http_status");
 
     if( isPostSuccess )
     {

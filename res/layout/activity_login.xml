@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"  
             android:layout_height="fill_parent"
             android:src="@drawable/note_8"
+            android:contentDescription="@string/top_icon"
             />
     </LinearLayout>
 

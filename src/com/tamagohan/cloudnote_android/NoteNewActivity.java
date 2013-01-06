@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ public class NoteNewActivity extends Activity {
         final EditText titleText = (EditText) findViewById(R.id.note_title);
         final EditText bodyText  = (EditText) findViewById(R.id.note_body);
 		Button createButton = (Button) findViewById(R.id.note_create);
-		Button backButton =   (Button) findViewById(R.id.note_back);
+		Button backButton   =   (Button) findViewById(R.id.note_back);
 		
 		final DefaultHttpClient httpClient = ((MyCloudNote) this.getApplication()).getHttpClient();
 		
@@ -52,7 +53,8 @@ public class NoteNewActivity extends Activity {
    	}
     
     // POST通信を実行
-    private void exec_post(String url, Map<String, String> params, final DefaultHttpClient httpClient) {
+    @SuppressLint("HandlerLeak")
+	private void exec_post(String url, Map<String, String> params, final DefaultHttpClient httpClient) {
 
       // 非同期タスクを定義
       HttpPostTask task = new HttpPostTask(

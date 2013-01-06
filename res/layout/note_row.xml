@@ -11,6 +11,7 @@
             android:layout_height="fill_parent"
             android:layout_marginRight="6dip"  
             android:src="@drawable/note_icon"
+            android:contentDescription="@string/note_icon"
             />
         <LinearLayout
             android:orientation="vertical"  
@@ -22,7 +23,7 @@
                 android:id="@+id/title"
                 android:layout_width="fill_parent"  
                 android:layout_height="0dip"
-                android:layout_weight="1"  
+                android:layout_weight="1"
                 />
             <TextView
                 android:layout_width="fill_parent"  
